@@ -1,0 +1,12 @@
+<mat-slider
+	class="slider"
+	min="0"
+	[max]="max"
+	[attr.aria-label]="label"
+	step="0.00001"
+><input matSliderThumb
+ 	[(value)]="value"
+	(input)="handleInput($event)"
+	(valueChange)="handleChange($event)"/>
+
+</mat-slider>
