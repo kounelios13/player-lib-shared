@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VideoService } from '@mkcodergr/video-player-shared';
+import { VideoService } from '../services';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PlaylistItem } from '../models/models';
 
