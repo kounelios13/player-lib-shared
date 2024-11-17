@@ -8,5 +8,6 @@ export type PlaylistItem = {
      * Item url.
      */
     url: string;
+    logo?: string;
   };
   

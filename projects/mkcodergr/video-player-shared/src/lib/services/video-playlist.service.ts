@@ -13,7 +13,7 @@ export class VideoPlaylistService {
 	private shouldPlayNext = new BehaviorSubject<boolean>(true);
 
   constructor(private videoService: VideoService) { }
-  etShouldPlayNext(playNext: boolean): void {
+  setShouldPlayNext(playNext: boolean): void {
 		this.shouldPlayNext.next(playNext);
 	}
 
@@ -47,12 +47,18 @@ export class VideoPlaylistService {
 		this.setCurrentVideo(this.list.getValue()[index < this.list.getValue().length ? index : 0].url);
 	}
 
+  setList(playList: PlaylistItem[], autoSetFirstVideo: boolean = true): void{
+    this.list.next(playList);
+    if (autoSetFirstVideo) {
+      this.setCurrentVideo(playList[0].url);
+    }
+  }
+
 	fetchList(endpoint: string): void {
 		fetch(endpoint)
 			.then((response) => response.json())
 			.then((playlist: PlaylistItem[]) => {
-				this.list.next(playlist);
-				this.setCurrentVideo(playlist[0].url);
+				this.setList(playlist)
 			});
 	}
 
@@ -60,8 +66,7 @@ export class VideoPlaylistService {
     fetch(endpoint).then(res => res.json())
       .then((apiResponse: T) => {
         const playlist = responseMapper(apiResponse);
-        this.list.next(playlist);
-        this.setCurrentVideo(playlist[0].url);
+        this.setList(playlist);
       })
   }
 }
